@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import Search from "../components/Search";
 
 const omdbApiKey = import.meta.env.VITE_OMDB_API_KEY;
 
@@ -16,6 +17,7 @@ function HomePage() {
 
   return (
     <main>
+      <Search />
       <h1>Welcome</h1>
       <p>{data?.Search?.[0]?.Title}</p>
     </main>
