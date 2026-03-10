@@ -1,12 +1,15 @@
-import { useState } from "react";
 import "./Search.css";
 
-function Search() {
-  const [query, setQuery] = useState("");
+type SearchProps = {
+  value: string;
+  onChange: (value: string) => void;
+  onSearch: (trimmedQuery: string) => void;
+};
 
+function Search({ value, onChange, onSearch }: SearchProps) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Wire to OMDB search when ready
+    onSearch(value.trim());
   }
 
   return (
@@ -17,8 +20,8 @@ function Search() {
           type="search"
           name="q"
           placeholder="Search movies..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           autoComplete="off"
           aria-label="Search movies"
         />
