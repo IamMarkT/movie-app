@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Search from "../components/Search";
+import MovieCard from "../components/MovieCard";
 
 const omdbApiKey = import.meta.env.VITE_OMDB_API_KEY;
 
@@ -19,7 +20,7 @@ function HomePage() {
     <main>
       <Search />
       <h1>Welcome</h1>
-      <p>{data?.Search?.[0]?.Title}</p>
+      <MovieCard movie={data.Search[0]} />
     </main>
   );
 }
