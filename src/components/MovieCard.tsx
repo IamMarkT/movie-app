@@ -1,6 +1,7 @@
 import "./MovieCard.css";
 
-type OmdbSearchItem = {
+export type OmdbSearchItem = {
+  imdbID: string;
   Title: string;
   Year: string;
   Poster: string;
