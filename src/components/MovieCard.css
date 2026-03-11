@@ -1,5 +1,24 @@
-.movieCard {
+.movieCardLink {
+  display: block;
   max-width: 16rem;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.movieCardLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.movieCardLink:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.movieCard {
+  max-width: none;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
