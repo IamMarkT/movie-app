@@ -1,25 +1,14 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import Search from "../components/Search";
 import MovieCard, { type OmdbSearchItem } from "../components/MovieCard";
+import { useMovieSearch } from "../hooks/useMovieSearch";
 import "./HomePage.css";
-
-const omdbApiKey = import.meta.env.VITE_OMDB_API_KEY;
-
-function fetchSearch(query: string) {
-  const params = new URLSearchParams({ apikey: omdbApiKey, s: query });
-  return fetch(`https://www.omdbapi.com/?${params}`).then((res) => res.json());
-}
 
 function HomePage() {
   const [inputQuery, setInputQuery] = useState("batman");
   const [committedQuery, setCommittedQuery] = useState("batman");
 
-  const { data, isLoading, error, isFetching } = useQuery({
-    queryKey: ["movies", committedQuery],
-    queryFn: () => fetchSearch(committedQuery),
-    enabled: committedQuery.length > 0,
-  });
+  const { data, isLoading, error, isFetching } = useMovieSearch(committedQuery);
 
   if (isLoading && !data) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;

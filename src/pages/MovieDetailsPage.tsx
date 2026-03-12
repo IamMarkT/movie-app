@@ -1,44 +1,10 @@
 import { Link, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useMovieDetails } from "../hooks/useMovieDetails";
 import "./MovieDetailsPage.css";
-
-const omdbApiKey = import.meta.env.VITE_OMDB_API_KEY;
-
-type OmdbDetailResponse = {
-  Response: string;
-  Error?: string;
-  Title?: string;
-  Year?: string;
-  Rated?: string;
-  Released?: string;
-  Runtime?: string;
-  Genre?: string;
-  Director?: string;
-  Actors?: string;
-  Plot?: string;
-  Poster?: string;
-  imdbRating?: string;
-};
-
-function fetchById(imdbId: string) {
-  const params = new URLSearchParams({
-    apikey: omdbApiKey,
-    i: imdbId,
-    plot: "full",
-  });
-  return fetch(`https://www.omdbapi.com/?${params}`).then((res) =>
-    res.json()
-  ) as Promise<OmdbDetailResponse>;
-}
 
 function MovieDetailsPage() {
   const { imdbId } = useParams<{ imdbId: string }>();
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["movie", imdbId],
-    queryFn: () => fetchById(imdbId!),
-    enabled: Boolean(imdbId),
-  });
+  const { data, isLoading, error } = useMovieDetails(imdbId);
 
   if (!imdbId) {
     return (
